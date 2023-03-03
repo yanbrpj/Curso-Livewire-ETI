@@ -9,6 +9,14 @@ class ShowTweets extends Component
 {
     public $content = '';
 
+    protected $rules = [
+        'content' => [
+            'required',
+            'min:3',
+            'max:255'
+        ],
+    ];
+
     public function render()
     {
         $tweets = Tweet::with('user')->get();
@@ -19,6 +27,8 @@ class ShowTweets extends Component
     }
 
     public function create() {
+        $this->validate();
+
         Tweet::create([
             'content' => $this->content,
             'user_id' => 1,
